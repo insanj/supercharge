@@ -1,0 +1,6 @@
+{
+  "parent": "insanj_supercharge:block/supercharge_block",
+  "textures": {
+    "layer0": "insanj_supercharge:item/supercharge_block"
+  }
+}

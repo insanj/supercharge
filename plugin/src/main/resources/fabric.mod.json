@@ -1,0 +1,13 @@
+{
+  "id": "insanj_supercharge",
+  "name": "supercharge",
+  "description": "supercharge any minecraft tool to prevent cooldown (fabric 1.14 snapshot)",
+  "version": "${version}",
+  "side": "universal",
+  "initializers": [
+    "com.insanj.supercharge.SuperchargeMod"
+  ],
+  "requires": {
+    "fabric": "*"
+  },
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "insanj_supercharge:block/supercharge_block"
+  }
+}
