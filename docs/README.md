@@ -41,11 +41,9 @@ supercharge any minecraft tool to prevent cooldown (fabric 1.14 snapshot)
 
 ## How to Play
 
-Install `supercharge.jar` in your `.minecraft/mods/` folder. That's it!
-
-![](before.png)
-![](after.png)
-
+<p align="center">
+   <img src="https://thumbs.gfycat.com/FakeBlankHairstreakbutterfly-size_restricted.gif" />
+</p>
 
 ### Requirements
 
