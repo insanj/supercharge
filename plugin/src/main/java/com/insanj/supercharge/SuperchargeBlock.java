@@ -84,7 +84,7 @@ public class SuperchargeBlock extends RedstoneOreBlock {
 
     public void sendErrorMessage(PlayerEntity player, String message) {
       TranslatableTextComponent textComponent = new TranslatableTextComponent(message);
-      textComponent.setStyle(new Style().setColor(TextFormat.RED));
+      // ?? textComponent.setStyle(new Style().setColor(TextFormat.RED));
       player.addChatMessage(textComponent, true);
     }
 }
