@@ -43,7 +43,7 @@ public class SuperchargeMod implements ModInitializer {
       Registry.register(Registry.ITEM, new Identifier(MOD_ID, BLOCK_ID), SUPERCHARGE_BLOCK_ITEM);
 
       CommandRegistry.INSTANCE.register(false, serverCommandSourceCommandDispatcher -> serverCommandSourceCommandDispatcher.register(
-        ServerCommandManager.literal("supercharge")
+        ServerCommandManager.literal("supercharge").requires(source -> source.hasPermissionLevel(4))
           .executes(context -> {
             ServerPlayerEntity senderPlayer = context.getSource().getPlayer();
             senderPlayer.inventory.insertStack(new ItemStack(SUPERCHARGE_BLOCK_ITEM));
