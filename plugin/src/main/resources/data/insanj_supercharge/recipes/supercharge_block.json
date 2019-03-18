@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "axa",
+        "xax",
+        "axa"
+    ],
+    "key":
+    {
+        "a":
+        {
+            "item": "minecraft:iron_ore"
+        },
+        "x":
+        {
+            "item": "minecraft:quartz"
+        }
+    },
+    "result":
+    {
+        "item": "insanj_supercharge:supercharge_block",
+        "count": 1
+    }
+}

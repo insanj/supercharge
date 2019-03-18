@@ -49,7 +49,7 @@ public class SuperchargeMod implements ModInitializer {
         ServerCommandManager.literal("supercharge")
           .executes(context -> {
             ServerPlayerEntity senderPlayer = context.getSource().getPlayer();
-            senderPlayer.inventory.addStack(new ItemStack(SUPERCHARGE_BLOCK_ITEM));
+            senderPlayer.inventory.insertStack(new ItemStack(SUPERCHARGE_BLOCK_ITEM));
             senderPlayer.inventory.markDirty();
             return 1;
           })
