@@ -34,7 +34,7 @@ import com.google.common.collect.Multimap;
 
 public class SuperchargeBlock extends RedstoneOreBlock {
     public SuperchargeBlock() {
-      super(FabricBlockSettings.of(Material.STONE).hardness(0.5f).materialColor(MaterialColor.QUARTZ).build());
+      super(FabricBlockSettings.of(Material.STONE).hardness(1.0f).materialColor(MaterialColor.QUARTZ).build());
     }
 
     @Override
@@ -52,27 +52,19 @@ public class SuperchargeBlock extends RedstoneOreBlock {
 
       Multimap existingModifiers = itemStack.getAttributeModifiers(slot);
       String attributeName = "supercharged_attribute";
-      System.out.println(existingModifiers.keys().toString());
-      if (existingModifiers.containsKey(attributeName)) {
+      String attributeItemStackModifierName = EntityAttributes.ATTACK_SPEED.getId();
+      if (existingModifiers.containsKey(attributeItemStackModifierName)) {
         playerEntity.playSound(SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, 0.1F, 1.0F);
         return; // already superchared this item!
       }
 
       EntityAttributeModifier.Operation operation = EntityAttributeModifier.Operation.values()[0];
       EntityAttributeModifier modifier = new EntityAttributeModifier(attributeName, 1000, operation);
-      String attributeItemStackModifierName = EntityAttributes.ATTACK_SPEED.getId();
       itemStack.addAttributeModifier(attributeItemStackModifierName, modifier, slot);
 
       // done!
-      playerEntity.playSound(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 0.5F, 1.0F);
+      playerEntity.playSound(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 0.35F, 1.0F);
 
       return;
     }
-/*
-    @Override
-    public void onPlace(World world, BlockPos pos, BlockState state, PlayerEntity placer, ItemStack itemStack) {
-      super.onPlace(world, pos, state, placer, itemStack);
-
-      spawnParticles(world, pos);
-    }*/
 }
