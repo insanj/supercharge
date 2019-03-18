@@ -35,9 +35,6 @@ public class SuperchargeMod implements ModInitializer {
     public static final String BLOCK_ID = "supercharge_block";
     public static final Block SUPERCHARGE_BLOCK = new SuperchargeBlock();
     public static final BlockItem SUPERCHARGE_BLOCK_ITEM =  new BlockItem(SUPERCHARGE_BLOCK, new Item.Settings().itemGroup(ItemGroup.MISC));
-
-  //  private static final Class MinecraftExplicitItemSettingsClass = Class.forName("net.minecraft.item.Item.Settings");
-//  private static final MinecraftExplicitItemSettingsClass SUPERCHARGE_BLOCK_ITEM_SETTINGS = MinecraftExplicitItemSettingsClass().itemGroup(ItemGroup.MISC);
     // public static final FabricItem SUPERCHARGE_BLOCK_ITEM = new FabricItem(new Item.Settings().itemGroup(ItemGroup.MISC));
 
     @Override
