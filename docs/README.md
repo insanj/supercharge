@@ -1,9 +1,10 @@
-<h3 align="center">
+<h1 align="center">
 🌞
 <br/><br/>
 supercharge
-<br/>
-supercharge any minecraft tool to prevent cooldown (fabric 1.14 snapshot)
+</h1>
+<h3>
+remove cooldown bar from any minecraft tool (1.14 19w11b)
 </h3>
 
 <p align="center">
@@ -58,11 +59,18 @@ supercharge any minecraft tool to prevent cooldown (fabric 1.14 snapshot)
 
 ## Acknowledgements
 
-Forked from [viridian](https://github.com/insanj/viridian), which itself was a fork of [ash](https://minecraft.curseforge.com/projects/ash-another-simple-hud).
+Forked from [viridian](https://github.com/insanj/viridian), which itself was a fork of [ASH - Another Simple HUD](https://minecraft.curseforge.com/projects/ash-another-simple-hud). Many thanks to the following open source projects which helped quite a lot as well:
+
+- [Player Graves](https://github.com/NerdHubMC/Player-Graves)
+- [FabricMC's Yarn](https://github.com/FabricMC/yarn/) & [API](https://github.com/FabricMC/fabric)
+- [Dinnerbone's Resource Pack API](https://gist.github.com/Dinnerbone/5662824)
+- [ShulkerBoxTooltip](https://github.com/MisterPeModder/ShulkerBoxTooltip/)
+- [Denizen](https://github.com/mcmonkey4eva/Denizen)
+
 
 ## Authors
 
-(c) 2019 Julian Weiss github.com/insanj
+(c) 2019 Julian Weiss (insanj). [insanj.com](https://insanj.com)
 
 ## License
 

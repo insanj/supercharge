@@ -1,5 +1,7 @@
 title: 🌞
 theme: jekyll-theme-modernist
-description: by @insanj
+description: by <a href="https://github.com/insanj">@insanj</a>
 show_downloads: true
 repository_url: https://github.com/insanj/supercharge
+author:
+  name: "Julian Weiss"
