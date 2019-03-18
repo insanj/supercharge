@@ -42,8 +42,7 @@ supercharge any minecraft tool to prevent cooldown (fabric 1.14 snapshot)
 ## How to Play
 
 <p align="center">
-  <img src="recipe.png" />
-  <img src="supercharged.png" />
+  <img src="combo.png" />
   <img src="demo.gif" />
 </p>
 
