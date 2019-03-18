@@ -16,22 +16,22 @@ supercharge any minecraft tool to prevent cooldown (fabric 1.14 snapshot)
     <img src="https://img.shields.io/github/languages/code-size/insanj/supercharge.svg" />
   </a>
 
+  <br/>
+
   <a href="https://github.com/insanj/supercharge/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/insanj/supercharge.svg" />
   </a>
-
-  <br/>
 
   <a href="https://jdk.java.net/">
     <img src="https://img.shields.io/badge/java-8-yellow.svg" />
   </a>
 
   <a href="https://fabricmc.net/use/">
-    <img src="https://img.shields.io/badge/minecraft%201.14%2019w11b-purple.svg" />
+    <img src="https://img.shields.io/badge/minecraft-1.14%2019w11b-purple.svg" />
   </a>
 
   <a href="https://maven.fabricmc.net/net/fabricmc/fabric/">
-    <img src="https://img.shields.io/badge/fabric%200.2.3.111%20-blue.svg" />
+    <img src="https://img.shields.io/badge/fabric%20api-0.2.3.111%20-blue.svg" />
   </a>
 </p>
 
