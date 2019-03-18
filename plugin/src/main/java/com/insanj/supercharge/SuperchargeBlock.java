@@ -32,6 +32,7 @@ import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.text.TextFormat;
 import net.minecraft.text.Style;
 import net.minecraft.text.TextComponent;
+import net.minecraft.text.StringTextComponent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -74,9 +75,6 @@ public class SuperchargeBlock extends RedstoneOreBlock {
 
       // step 4: create a new EntityAttributeModifier with the above specs
       final EntityAttributeModifier.Operation operation = EntityAttributeModifier.Operation.values()[0];
-      System.out.printlnt("asdf Values = " +  EntityAttributeModifier.Operation.values().toString());
-      System.out.printlnt("asdf operation = " + operation.toString());
-
       final EntityAttributeModifier superchargedMod = new EntityAttributeModifier("Supercharge modifier", attackSpeedModifierAmount, operation);
 
       for (EntityAttributeModifier existingAttr : existingAttributes) {
@@ -103,7 +101,8 @@ public class SuperchargeBlock extends RedstoneOreBlock {
       }
 
       // setp 6: supercharge name?
-      itemStack.setDisplayName(new TranslatableTextComponent("Supercharged " + itemStack.getDisplayName()));
+      TranslatableTextComponent superchargedDisplayName = new TranslatableTextComponent("Supercharged " + itemStack.getDisplayName().getText());
+      itemStack.setDisplayName(superchargedDisplayName);
       playerInventory.markDirty();
 
       // done!

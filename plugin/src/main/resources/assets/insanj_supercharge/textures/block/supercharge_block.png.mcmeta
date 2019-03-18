@@ -1,6 +1,6 @@
 {
     "animation": {
-        "frametime": 8,
+        "frametime": 6,
         "//comment": "A smaller frametime value, a faster animation (fewer milliseconds per frame)."
     }
 }
