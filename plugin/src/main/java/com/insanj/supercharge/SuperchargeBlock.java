@@ -25,7 +25,7 @@ import net.minecraft.item.block.BlockItem;
 import net.minecraft.item.MiningToolItem;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.StringTextComponent;
+import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.text.TextFormat;
 import net.minecraft.text.Style;
 import net.minecraft.util.registry.Registry;
@@ -37,7 +37,8 @@ import com.google.common.collect.Multimap;
 
 public class SuperchargeBlock extends RedstoneOreBlock {
     public SuperchargeBlock() {
-      super(FabricBlockSettings.of(Material.COBWEB).hardness(1.0f).lightLevel(10).materialColor(MaterialColor.QUARTZ).build());
+      super(FabricBlockSettings.of(Material.COBWEB).hardness(1.0f).lightLevel(15).build());
+      // TODO: customize color? .materialColor(MaterialColor.QUARTZ)
     }
 
     @Override
@@ -82,7 +83,7 @@ public class SuperchargeBlock extends RedstoneOreBlock {
 
 
     public void sendErrorMessage(PlayerEntity player, String message) {
-      StringTextComponent textComponent = new StringTextComponent(message);
+      TranslatableTextComponent textComponent = new TranslatableTextComponent(message);
       textComponent.setStyle(new Style().setColor(TextFormat.RED));
       player.addChatMessage(textComponent, true);
     }
