@@ -2,6 +2,7 @@ package com.insanj.supercharge;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 
@@ -13,6 +14,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -28,10 +30,12 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.text.TextFormat;
 import net.minecraft.text.Style;
+import net.minecraft.text.TextComponent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.BlockView;
 
 import com.google.common.collect.Multimap;
 
@@ -81,10 +85,16 @@ public class SuperchargeBlock extends RedstoneOreBlock {
       return;
     }
 
-
     public void sendErrorMessage(PlayerEntity player, String message) {
       TranslatableTextComponent textComponent = new TranslatableTextComponent(message);
       // ?? textComponent.setStyle(new Style().setColor(TextFormat.RED));
       player.addChatMessage(textComponent, true);
+    }
+
+    @Override
+    public void buildTooltip(ItemStack stack, BlockView view, List<TextComponent> tooltip, TooltipContext options) {
+      tooltip.add(new TranslatableTextComponent("tooltip_one.insanj_supercharge.supercharge_block"));
+      tooltip.add(new TranslatableTextComponent("tooltip_two.insanj_supercharge.supercharge_block"));
+      super.buildTooltip(stack, view, tooltip, options);
     }
 }

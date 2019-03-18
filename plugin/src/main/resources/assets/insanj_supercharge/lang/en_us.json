@@ -1,4 +1,5 @@
 {
   "block.insanj_supercharge.supercharge_block": "Supercharger",
-  "tooltip.insanj_supercharge.supercharge_block": "Permanently removes cooldown on mining tool."
+  "tooltip_one.insanj_supercharge.supercharge_block": "Removes cooldown on",
+  "tooltip_two.insanj_supercharge.supercharge_block": "the tool that breaks it!"
 }
