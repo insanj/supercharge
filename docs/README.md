@@ -33,6 +33,10 @@ supercharge any minecraft tool to prevent cooldown (fabric 1.14 snapshot)
   <a href="https://maven.fabricmc.net/net/fabricmc/fabric/">
     <img src="https://img.shields.io/badge/fabric%20api-0.2.3.111%20-blue.svg" />
   </a>
+
+  <a href="https://github.com/insanj/supercharge/releases">
+    <img src="https://img.shields.io/badge/🚀-Download%20on%20Github-red.svg" />
+  </a>
 </p>
 
 ## How to Play
