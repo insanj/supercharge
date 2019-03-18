@@ -1,11 +1,12 @@
 <h1 align="center">
-🌞
-<br/><br/>
-supercharge
+  🌞
+  <br/>
+  supercharge
 </h1>
-<h3>
-remove cooldown bar from any minecraft tool (1.14 19w11b)
-</h3>
+
+<h2 align="center">
+  remove cooldown bar from any minecraft tool
+</h2>
 
 <p align="center">
   <a href="https://github.com/insanj/supercharge/releases">
@@ -40,24 +41,45 @@ remove cooldown bar from any minecraft tool (1.14 19w11b)
   </a>
 </p>
 
-## How to Play
+<br/>
+<br/>
+
+<h2 align="center">
+  How to Play
+</h2>
 
 <p align="center">
   <img src="combo.png" />
   <img src="demo.gif" />
 </p>
 
-### Requirements
+<br/>
 
-- Make sure [Fabric](https://fabricmc.net/wiki/install) is already installed on your Minecraft client. I recommend using the Vanilla launcher.
-- Once the Fabric launcher is installed, get the [Fabric API](https://minecraft.curseforge.com/projects/fabric), which powers Fabric mods, and place it in your `mods/` folder (appears after running Fabric from the Minecraft launcher for the first time).
-- To see enabled mods, install [Mod Menu](https://minecraft.curseforge.com/projects/modmenu), which adds a button on the start screen and pause menu.
+<h2 align="center">
+Requirements
+</h2>
 
-## How to Build
+1. Make sure [Fabric](https://fabricmc.net/wiki/install) is already installed on your Minecraft client. I recommend using the Vanilla launcher.
+2. Once the Fabric launcher is installed, get the [Fabric API](https://minecraft.curseforge.com/projects/fabric), which powers Fabric mods, and place it in your `mods/` folder (appears after running Fabric from the Minecraft launcher for the first time).
+3. To see enabled mods, install [Mod Menu](https://minecraft.curseforge.com/projects/modmenu), which adds a button on the start screen and pause menu.
 
-- `cd plugin && ./gradlew build`
+<br/>
 
-## Acknowledgements
+<h2 align="center">
+How to Build
+</h2>
+
+```
+cd plugin && ./gradlew build
+```
+
+Depending on your machine, you may have to run `gradle` or the `gradlew.bat` file locally to setup the gradle wrapper.
+
+<br/>
+
+<h2 align="center">
+Acknowledgements
+</h2>
 
 Forked from [viridian](https://github.com/insanj/viridian), which itself was a fork of [ASH - Another Simple HUD](https://minecraft.curseforge.com/projects/ash-another-simple-hud). Many thanks to the following open source projects which helped quite a lot as well:
 
@@ -67,12 +89,21 @@ Forked from [viridian](https://github.com/insanj/viridian), which itself was a f
 - [ShulkerBoxTooltip](https://github.com/MisterPeModder/ShulkerBoxTooltip/)
 - [Denizen](https://github.com/mcmonkey4eva/Denizen)
 
+<br/>
 
-## Authors
+<h2 align="center">
+Authors
+</h2>
 
-(c) 2019 Julian Weiss (insanj). [insanj.com](https://insanj.com)
+<p align="center">
+  (c) 2019 Julian Weiss (insanj). Made with 💚 in Brooklyn. <a href="http://insanj.com">insanj.com</a>.
+</p>
 
-## License
+<br/>
+
+<h2 align="center">
+License
+</h2>
 
 ### [supercharge](https://github.com/insanj/supercharge)
 
