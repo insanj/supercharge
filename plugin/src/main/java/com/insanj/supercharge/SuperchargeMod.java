@@ -16,13 +16,13 @@ import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.block.BlockItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.text.StringTextComponent;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.command.ServerCommandManager;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -43,7 +43,7 @@ public class SuperchargeMod implements ModInitializer {
       Registry.register(Registry.ITEM, new Identifier(MOD_ID, BLOCK_ID), SUPERCHARGE_BLOCK_ITEM);
 
       CommandRegistry.INSTANCE.register(false, serverCommandSourceCommandDispatcher -> serverCommandSourceCommandDispatcher.register(
-        ServerCommandManager.literal("supercharge").requires(source -> source.hasPermissionLevel(4))
+        CommandManager.literal("supercharge").requires(source -> source.hasPermissionLevel(4))
           .executes(context -> {
             ServerPlayerEntity senderPlayer = context.getSource().getPlayer();
             senderPlayer.inventory.insertStack(new ItemStack(SUPERCHARGE_BLOCK_ITEM));

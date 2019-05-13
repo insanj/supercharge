@@ -29,15 +29,15 @@
   </a>
 
   <a href="https://fabricmc.net/use/">
-    <img src="https://img.shields.io/badge/minecraft-1.14%2019w11b-purple.svg" />
+    <img src="https://img.shields.io/badge/minecraft-1.14-purple.svg" />
   </a>
 
   <a href="https://maven.fabricmc.net/net/fabricmc/fabric/">
-    <img src="https://img.shields.io/badge/fabric%20api-0.2.3.111%20-blue.svg" />
+    <img src="https://img.shields.io/badge/fabric-0.2.7-blue.svg" />
   </a>
 
-  <a href="https://github.com/insanj/supercharge/releases">
-    <img src="https://img.shields.io/badge/🚀-Download%20on%20Github-red.svg" />
+  <a href="https://minecraft.curseforge.com/projects/supercharge-fabric">
+    <img src="https://img.shields.io/badge/🚀-Download%20on%20CurseForge!-orange.svg" />
   </a>
 </p>
 

@@ -24,7 +24,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.block.BlockItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.MiningToolItem;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.sound.SoundEvents;

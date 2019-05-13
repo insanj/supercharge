@@ -1,13 +1,40 @@
 {
+  "schemaVersion": 1,
   "id": "insanj_supercharge",
-  "name": "supercharge",
-  "description": "supercharge any minecraft tool to prevent cooldown (fabric 1.14 snapshot)",
   "version": "${version}",
-  "side": "universal",
-  "initializers": [
-    "com.insanj.supercharge.SuperchargeMod"
+
+  "name": "supercharge",
+  "description": "supercharge any minecraft tool to prevent cooldown (fabric 1.14)",
+  "authors": [
+    {
+     "name": "Julian (insanj) Weiss",
+      "contact": {
+        "email": "me@insanj.com",
+        "homepage": "https://insanj.github.io/supercharge/",
+        "issues": "https://github.com/insanj/supercharge/issues",
+        "sources": "https://github.com/insanj/supercharge/"
+      }
+    }
   ],
-  "requires": {
+  "license": "MIT",
+  "contact": {
+    "email": "me@insanj.com",
+    "homepage": "https://insanj.github.io/supercharge/",
+    "issues": "https://github.com/insanj/supercharge/issues",
+    "sources": "https://github.com/insanj/supercharge/"
+  },
+  "icon": "assets/insanj_supercharge/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+    "com.insanj.supercharge.SuperchargeMod"
+    ]
+  },
+  "depends": {
     "fabric": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
   }
 }
