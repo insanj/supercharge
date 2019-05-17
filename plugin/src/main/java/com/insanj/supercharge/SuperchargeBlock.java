@@ -28,6 +28,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.MiningToolItem;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.text.TextFormat;
 import net.minecraft.text.Style;
@@ -55,6 +56,7 @@ public class SuperchargeBlock extends RedstoneOreBlock {
       ItemStack itemStack = playerInventory.getMainHandStack();
       if (itemStack == null || itemStack.isEmpty()) {
         sendErrorMessage(playerEntity, "You need an item in your hand to Supercharge it!");
+        world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 0.35F, 1.0F);
         return; // invalid item in main hand (or no item at all?)
       }
 
@@ -68,6 +70,7 @@ public class SuperchargeBlock extends RedstoneOreBlock {
       Multimap existingModifiers = itemStack.getAttributeModifiers(slot);
       if (existingModifiers.containsKey(attributeItemStackModifierName) == false) {
         sendErrorMessage(playerEntity, "This thing isn't meant to be Supercharged...");
+        world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 0.35F, 1.0F);
         return; // this thing should not be supercharged; it has no attack speed
       }
 
@@ -80,39 +83,34 @@ public class SuperchargeBlock extends RedstoneOreBlock {
       for (EntityAttributeModifier existingAttr : existingAttributes) {
         if (existingAttr.getAmount() >= attackSpeedModifierAmount) {
           sendErrorMessage(playerEntity, "This item is already Supercharged!");
+          world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 0.35F, 1.0F);
           return; // already superchared this item!
         }
       }
 
-      // step 5: replace the existing modifiers with the supercharged ones and refresh the player's inventory!
-      boolean superchargedOnce = false;
+      // step 5: add the supercharged modifier
+      itemStack.addAttributeModifier(attributeItemStackModifierName, superchargedMod, slot);
+
+      // step 6: add back the old modifiers which go missing for some reason
       for (Object attributeName : existingModifiers.keySet()) {
-          if (attributeName.equals(attributeItemStackModifierName)) {
-            if (superchargedOnce == false) {
-              itemStack.addAttributeModifier(attributeItemStackModifierName, superchargedMod, slot);
-              superchargedOnce = true;
-            } // no else because we want to skip any original ATTACK_SPEED modifier
-          } else {
-            Collection<EntityAttributeModifier> attributes = (Collection<EntityAttributeModifier>)existingModifiers.get(attributeName);
-            for (EntityAttributeModifier m : attributes) {
-              itemStack.addAttributeModifier((String)attributeName, m, slot);
-            }
+          Collection<EntityAttributeModifier> attributes = (Collection<EntityAttributeModifier>)existingModifiers.get(attributeName);
+          for (EntityAttributeModifier m : attributes) {
+            itemStack.addAttributeModifier((String)attributeName, m, slot);
           }
       }
 
-      // setp 6: supercharge name?
+      // step 7: supercharge name
       TranslatableTextComponent superchargedDisplayName = new TranslatableTextComponent("Supercharged " + itemStack.getDisplayName().getText());
       itemStack.setDisplayName(superchargedDisplayName);
+
+      // step 8: refresh the player's inventory!
       playerInventory.markDirty();
 
-      // done!
-      playerEntity.playSound(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 0.35F, 1.0F);
-      return;
+      world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.PLAYERS, 0.35F, 1.0F);
     }
 
     public void sendErrorMessage(PlayerEntity player, String message) {
       TranslatableTextComponent textComponent = new TranslatableTextComponent(message);
-      // ?? textComponent.setStyle(new Style().setColor(TextFormat.RED));
       player.addChatMessage(textComponent, true);
     }
 
