@@ -1,5 +1,11 @@
 {
+  "itemGroup.insanj_supercharge.supercharge" : "Supercharge",
   "block.insanj_supercharge.supercharge_block": "Supercharger",
-  "tooltip_one.insanj_supercharge.supercharge_block": "Removes cooldown on",
-  "tooltip_two.insanj_supercharge.supercharge_block": "the tool that breaks it!"
+
+  "tooltip.insanj_supercharge.supercharge_block.first_line": "Removes cooldown on",
+  "tooltip.insanj_supercharge.supercharge_block.second_line": "the tool that breaks it!",
+
+  "error.insanj_supercharge.you_need_item" : "You need an item in your hand to Supercharge it!",
+  "error.insanj_supercharge.thing_cannot_work" : "This thing isn't meant to be Supercharged...",
+  "error.insanj_supercharge.already_supercharged" : "This item is already Supercharged!"
 }
