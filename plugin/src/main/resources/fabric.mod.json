@@ -4,13 +4,13 @@
   "version": "${version}",
 
   "name": "supercharge",
-  "description": "supercharge any minecraft tool to prevent cooldown (fabric 1.14)",
+  "description": "supercharge any minecraft tool to prevent cooldown (fabric 1.14)\ncraft the supercharger block by placing 5 iron blocks in an X formation together with 4 quartz shaped like a diamond\nif you're a server operator, the command /supercharge will add the item to your inventory automatically\nbreaking the supercharger block with any compatible tool will remove the cooldown after swinging\nyou can see if this effect is active by hovering over the item!\nthanks for using supercharge  :)  please check out CurseForge and Github for updates by clicking the links above\n",
   "authors": [
     {
      "name": "Julian (insanj) Weiss",
       "contact": {
         "email": "me@insanj.com",
-        "homepage": "https://insanj.github.io/supercharge/",
+        "homepage": "https://minecraft.curseforge.com/projects/supercharge-fabric",
         "issues": "https://github.com/insanj/supercharge/issues",
         "sources": "https://github.com/insanj/supercharge/"
       }
@@ -19,7 +19,7 @@
   "license": "MIT",
   "contact": {
     "email": "me@insanj.com",
-    "homepage": "https://insanj.github.io/supercharge/",
+    "homepage": "https://minecraft.curseforge.com/projects/supercharge-fabric",
     "issues": "https://github.com/insanj/supercharge/issues",
     "sources": "https://github.com/insanj/supercharge/"
   },

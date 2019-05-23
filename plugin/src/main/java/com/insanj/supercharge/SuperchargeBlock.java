@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Collection;
+import java.util.UUID;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 
@@ -26,6 +27,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.MiningToolItem;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.sound.SoundCategory;
@@ -52,6 +54,7 @@ public class SuperchargeBlock extends RedstoneOreBlock {
 
   private final String SUPERCHARGE_ATTRIBUTE_MOD_KEY = "Supercharge modifier";
   private final String SUPERCHARGE_ITEM_PREFIX = "Supercharged ";
+  private final String SUPERCHARGE_ATTRIBUTE_MOD_TAG = "AttributeModifiers";
 
   public SuperchargeBlock() {
     super(FabricBlockSettings.of(Material.COBWEB).hardness(1.0f).lightLevel(15).build());
@@ -61,61 +64,59 @@ public class SuperchargeBlock extends RedstoneOreBlock {
   public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity playerEntity) {
     super.onBreak(world, pos, state, playerEntity);
 
-    // step 1: get the inventory, and thus main hand item of the player who broke the block
+    // --> get the inventory, and thus main hand item of the player who broke the block
     PlayerInventory playerInventory = playerEntity.inventory;
     ItemStack itemStack = playerInventory.getMainHandStack();
     if (itemStack == null || itemStack.isEmpty()) {
       sendErrorMessage(playerEntity, SUPERCHARGE_ERROR_YOU_NEED_ITEM);
       world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 0.35F, 1.0F);
-      return; // invalid item in main hand (or no item at all?)
+      return; // --X invalid item in main hand (or no item at all?)
     }
 
-    // step 2: setup the config for the supercharge -- In Main Hand, Attack Speed, x1000
+    // --> setup the config for the supercharge -- In Main Hand, Attack Speed, x1000
     final EquipmentSlot slot = EquipmentSlot.HAND_MAIN;
     final String attributeItemStackModifierName = EntityAttributes.ATTACK_SPEED.getId();
     final double attackSpeedModifierAmount = 1000.0;
 
-    // step 3: grab the existing modifiers on the itemStack
-    // note: we need to ensure all these are still on the item at the end
+    // --> grab the existing modifiers on the itemStack to check if anything is effectively supercharging it
     Multimap existingModifiers = itemStack.getAttributeModifiers(slot);
     if (existingModifiers.containsKey(attributeItemStackModifierName) == false) {
       sendErrorMessage(playerEntity, SUPERCHARGE_ERROR_THING_CANNOT_WORK);
       world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 0.35F, 1.0F);
-      return; // this thing should not be supercharged; it has no attack speed
+      return; // --X this thing should not be supercharged; it has no attack speed
     }
 
     Collection<EntityAttributeModifier> existingAttributes = (Collection<EntityAttributeModifier>)existingModifiers.get(attributeItemStackModifierName);
 
-    // step 4: create a new EntityAttributeModifier with the above specs
-    final EntityAttributeModifier.Operation operation = EntityAttributeModifier.Operation.values()[0];
-    final EntityAttributeModifier superchargedMod = new EntityAttributeModifier(SUPERCHARGE_ATTRIBUTE_MOD_KEY, attackSpeedModifierAmount, operation);
-
+    // --> create a new EntityAttributeModifier with the above specs
     for (EntityAttributeModifier existingAttr : existingAttributes) {
       if (existingAttr.getAmount() >= attackSpeedModifierAmount) {
         sendErrorMessage(playerEntity, SUPERCHARGE_ERROR_ALREADY_SUPERCHARGED);
         world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 0.35F, 1.0F);
-        return; // already superchared this item!
+        return; // --X already superchared this item!
       }
     }
 
-    // step 5: add the supercharged modifier
-    itemStack.addAttributeModifier(attributeItemStackModifierName, superchargedMod, slot);
-
-    // step 6: add back the old modifiers which go missing for some reason
-    for (Object attributeName : existingModifiers.keySet()) {
-      Collection<EntityAttributeModifier> attributes = (Collection<EntityAttributeModifier>)existingModifiers.get(attributeName);
-      for (EntityAttributeModifier m : attributes) {
-        itemStack.addAttributeModifier((String)attributeName, m, slot);
-      }
-    }
-
-    // step 7: supercharge name
+    // --> add localized supercharge name
     TranslatableTextComponent superchargedDisplayName = new TranslatableTextComponent(SUPERCHARGE_ITEM_PREFIX + itemStack.getDisplayName().getText());
     itemStack.setDisplayName(superchargedDisplayName);
 
-    // step 8: refresh the player's inventory!
-    playerInventory.markDirty();
+    // --> add the supercharged modifier
+    CompoundTag attributeModTag = itemStack.getOrCreateSubCompoundTag(SUPERCHARGE_ATTRIBUTE_MOD_TAG);
+    CompoundTag superchargeTag = new CompoundTag();
+    superchargeTag.putDouble("Amount", 1000);
+    superchargeTag.putString("AttributeName", "generic.attackSpeed");
+    superchargeTag.putString("Name", "Supercharge Modifier");
+    superchargeTag.putInt("Operation", 0);
+    superchargeTag.putString("Slot", "mainhand");
 
+    UUID superchargeTagUUID = UUID.randomUUID();
+    superchargeTag.putLong("UUIDLeast", superchargeTagUUID.getLeastSignificantBits());
+    superchargeTag.putLong("UUIDMost", superchargeTagUUID.getMostSignificantBits());
+    itemStack.setChildTag(SUPERCHARGE_ATTRIBUTE_MOD_TAG, superchargeTag);
+
+    // --> refresh the player's inventory!
+    playerInventory.markDirty();
     world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.PLAYERS, 0.35F, 1.0F);
   }
 
