@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Collection;
-import java.util.UUID;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 
@@ -27,7 +26,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.MiningToolItem;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.sound.SoundCategory;
@@ -52,9 +50,8 @@ public class SuperchargeBlock extends RedstoneOreBlock {
   private final String SUPERCHARGE_ERROR_THING_CANNOT_WORK = "error.insanj_supercharge.thing_cannot_work";
   private final String SUPERCHARGE_ERROR_ALREADY_SUPERCHARGED = "error.insanj_supercharge.already_supercharged";
 
-  private final String SUPERCHARGE_ATTRIBUTE_MOD_KEY = "Supercharge modifier";
+  private final String SUPERCHARGE_ATTRIBUTE_MOD_KEY = "generic.movementSpeed";
   private final String SUPERCHARGE_ITEM_PREFIX = "Supercharged ";
-  private final String SUPERCHARGE_ATTRIBUTE_MOD_TAG = "AttributeModifiers";
 
   public SuperchargeBlock() {
     super(FabricBlockSettings.of(Material.COBWEB).hardness(1.0f).lightLevel(15).build());
@@ -78,7 +75,8 @@ public class SuperchargeBlock extends RedstoneOreBlock {
     final String attributeItemStackModifierName = EntityAttributes.ATTACK_SPEED.getId();
     final double attackSpeedModifierAmount = 1000.0;
 
-    // --> grab the existing modifiers on the itemStack to check if anything is effectively supercharging it
+    // --> grab the existing modifiers on the itemStack
+    // note: we need to ensure all these are still on the item at the end
     Multimap existingModifiers = itemStack.getAttributeModifiers(slot);
     if (existingModifiers.containsKey(attributeItemStackModifierName) == false) {
       sendErrorMessage(playerEntity, SUPERCHARGE_ERROR_THING_CANNOT_WORK);
@@ -89,34 +87,43 @@ public class SuperchargeBlock extends RedstoneOreBlock {
     Collection<EntityAttributeModifier> existingAttributes = (Collection<EntityAttributeModifier>)existingModifiers.get(attributeItemStackModifierName);
 
     // --> create a new EntityAttributeModifier with the above specs
+    final EntityAttributeModifier.Operation operation = EntityAttributeModifier.Operation.fromId(0);
+    final EntityAttributeModifier superchargedMod = new EntityAttributeModifier(SUPERCHARGE_ATTRIBUTE_MOD_KEY, attackSpeedModifierAmount, operation);
+
     for (EntityAttributeModifier existingAttr : existingAttributes) {
       if (existingAttr.getAmount() >= attackSpeedModifierAmount) {
         sendErrorMessage(playerEntity, SUPERCHARGE_ERROR_ALREADY_SUPERCHARGED);
         world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 0.35F, 1.0F);
-        return; // --X already superchared this item!
+        return; // --X already supercharged this item!
       }
     }
 
-    // --> add localized supercharge name
+    // --> supercharge name
     TranslatableTextComponent superchargedDisplayName = new TranslatableTextComponent(SUPERCHARGE_ITEM_PREFIX + itemStack.getDisplayName().getText());
     itemStack.setDisplayName(superchargedDisplayName);
 
-    // --> add the supercharged modifier
-    CompoundTag attributeModTag = itemStack.getOrCreateSubCompoundTag(SUPERCHARGE_ATTRIBUTE_MOD_TAG);
-    CompoundTag superchargeTag = new CompoundTag();
-    superchargeTag.putDouble("Amount", 1000);
-    superchargeTag.putString("AttributeName", "generic.attackSpeed");
-    superchargeTag.putString("Name", "Supercharge Modifier");
-    superchargeTag.putInt("Operation", 0);
-    superchargeTag.putString("Slot", "mainhand");
+    // --> replace the existing modifiers with the supercharged ones and refresh the player's inventory!
+    boolean superchargedOnce = false;
+    for (Object attributeName : existingModifiers.keySet()) {
+      if (attributeName.equals(attributeItemStackModifierName)) {
+        if (superchargedOnce == false) {
+          itemStack.addAttributeModifier(attributeItemStackModifierName, superchargedMod, slot);
+          superchargedOnce = true;
+        } // no else because we want to skip any original ATTACK_SPEED modifier
+      } else {
+        Collection<EntityAttributeModifier> attributes = (Collection<EntityAttributeModifier>)existingModifiers.get(attributeName);
+        for (EntityAttributeModifier m : attributes) {
+          // EntityAttributeModifier r = new EntityAttributeModifier(m.getName(), m.getAmount(), operation);
+          itemStack.addAttributeModifier((String)attributeName, m, slot);
+        }
+      }
+    }
 
-    UUID superchargeTagUUID = UUID.randomUUID();
-    superchargeTag.putLong("UUIDLeast", superchargeTagUUID.getLeastSignificantBits());
-    superchargeTag.putLong("UUIDMost", superchargeTagUUID.getMostSignificantBits());
-    itemStack.setChildTag(SUPERCHARGE_ATTRIBUTE_MOD_TAG, superchargeTag);
+    itemStack.getTag().putInt("HideFlags", 2); // --> Adding 2 will hide Attributes modifiers 
 
     // --> refresh the player's inventory!
     playerInventory.markDirty();
+
     world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.PLAYERS, 0.35F, 1.0F);
   }
 
